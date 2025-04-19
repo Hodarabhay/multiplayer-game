@@ -1,4 +1,5 @@
-const socket = io();
+const socket = io(); // ✅ Only once defined
+
 const cells = document.querySelectorAll('.cell');
 const resetBtn = document.getElementById('reset');
 let currentPlayer = 'X';
@@ -31,4 +32,12 @@ resetBtn.addEventListener('click', () => {
 
 socket.on('gameReset', () => {
   cells.forEach(cell => cell.textContent = '');
+});
+
+// ✅ User count update
+socket.on('userCount', (count) => {
+  const counter = document.getElementById('userCounter');
+  if (counter) {
+    counter.innerText = `Players online: ${count}`;
+  }
 });
